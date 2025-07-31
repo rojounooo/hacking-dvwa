@@ -1,1 +1,1 @@
-# metasploitable-walkthroughs
+# metasploitable

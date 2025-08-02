@@ -15,29 +15,21 @@ The documentation is organized by DVWA's security levels. Each folder contains a
 - **[Impossible](./Impossible)** – Secure implementations.
 
 ## 🛠 Tools Used
-- Burp Suite
-- OWASP ZAP
-- curl / Postman
-- Firefox DevTools
-- Nikto / Dirb
-- SQLMap
+- 
+
 
 ## ⚠️ Disclaimer
 
 This project is for **educational purposes only**. Do not attempt to exploit systems you don’t own or have explicit permission to test.
 
-## 📸 Screenshots
-
-Optional: Add screenshots per vulnerability to enhance clarity.
-
 ## ✅ Progress Tracker
 
 | Vulnerability     | Low | Medium | High | Impossible |
 |-------------------|-----|--------|------|------------|
-| SQL Injection     | ✅  | ⬜     | ⬜   | ⬜         |
-| Reflected XSS     | ✅  | ⬜     | ⬜   | ⬜         |
-| Stored XSS        | ✅  | ⬜     | ⬜   | ⬜         |
-| Command Injection | ✅  | ⬜     | ⬜   | ⬜         |
-| File Upload       | ⬜  | ⬜     | ⬜   | ⬜         |
-| CSRF              | ⬜  | ⬜     | ⬜   | ⬜         |
-| Brute Force       | ⬜  | ⬜     | ⬜   | ⬜         |
+| SQL Injection     | ⬜  | ⬜     | ⬜   | ⬜       |
+| Reflected XSS     | ⬜  | ⬜     | ⬜   | ⬜       |
+| Stored XSS        | ⬜  | ⬜     | ⬜   | ⬜       |
+| Command Injection | ⬜  | ⬜     | ⬜   | ⬜       |
+| File Upload       | ⬜  | ⬜     | ⬜   | ⬜       |
+| CSRF              | ⬜  | ⬜     | ⬜   | ⬜       |
+| Brute Force       | ⬜  | ⬜     | ⬜   | ⬜       |

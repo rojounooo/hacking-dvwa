@@ -20,7 +20,8 @@
 
 ## Vulnerable Code Analysis
 
-### File: `/var/www/dvwa/vulnerabilities/sqli/source/low`
+### File:
+`/var/www/dvwa/vulnerabilities/sqli/source/low`
 
 #### Key Vulnerability Points:
 
@@ -30,7 +31,7 @@
     $getid = "SELECT first_name, last_name FROM users WHERE user_id = '$id'"; 
 ```
 
-Explanation: 
+### Explanation: 
 - The code is taking direct user input `$id = $_GET['id'];` and inserting it into the sql query `WHERE user_id = '$id'"`.
 
 - This can be exploited using the payload 1' or '1'=1: 
@@ -41,4 +42,6 @@ Explanation:
 - Causes: 
     - No input validation or sanitisation on $id so users can input anything 
     - Direct insertion of user input into queries means queries can be modified
-    - Not using 
+    - Not using prepared statements, prepared statements treat user input only as data rather than SQL code so even if SQL keywords are included they won't modify the queries 
+
+

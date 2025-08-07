@@ -45,3 +45,25 @@
 ```
  
 ### Explanation 
+### Explanation
+
+- The code takes direct user input from the **GET** request:
+
+    ```php
+    if(!array_key_exists ("name", $_GET) || $_GET['name'] == NULL || $_GET['name'] == ''){
+    ```
+    - It performs **no input validation**, filtering, or sanitization of the `name` parameter.
+    - The value of `$_GET['name']` is **directly inserted into the HTML response** without any output encoding like `htmlspecialchars()`.
+    - As a result, if an attacker submits a malicious payload like:
+
+    ```html
+    <script>alert(1)</script>
+    ```
+
+    - The script is **reflected immediately** in the page and executed by the browser as JavaScript.
+
+- **Causes:**
+    -  No input validation or filtering of dangerous characters.
+    -  No output encoding using functions like `htmlspecialchars()` to neutralize HTML or JavaScript.
+    -  The application assumes that user input is safe to render as HTML, which allows attackers to inject executable scripts.
+

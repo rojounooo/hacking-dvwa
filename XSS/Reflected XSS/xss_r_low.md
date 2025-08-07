@@ -49,7 +49,7 @@
 - The code takes direct user input from the **GET** request:
 
     ```php
-    if(!array_key_exists ("name", $_GET) || $_GET['name'] == NULL || $_GET['name'] == ''){
+    echo 'Hello ' . $_GET['name'];
     ```
     - It performs **no input validation**, filtering, or sanitization of the `name` parameter.
     - The value of `$_GET['name']` is **directly inserted into the HTML response** without any output encoding like `htmlspecialchars()`.

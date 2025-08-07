@@ -44,7 +44,6 @@
     ?> 
 ```
  
-### Explanation 
 ### Explanation
 
 - The code takes direct user input from the **GET** request:

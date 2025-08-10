@@ -20,6 +20,8 @@
     Welcome to the password protected area admin' or '1'='1 --
     ```
 
+### Note 
+- This attempt technically isn't a brute force attack. When utilising Hydra, I got multiple false positives due to the response length. After analysing the source code I identified that it was also weak to SQLi. 
 --- 
 
 ## Vulnerable Code Analysis 

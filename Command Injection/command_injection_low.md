@@ -2,6 +2,9 @@
 
 ## Attack Steps 
 
+1. Open target page 
+    - https://<ip address>/dvwa/vulnerabilities/command
+
 ## Vulnerable Code Analysis
 
 ### File: `[RELATIVE FILE PATH]`

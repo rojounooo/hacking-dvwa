@@ -27,7 +27,8 @@
 
 ## Vulnerable Code Analysis
 
-### File: `[RELATIVE FILE PATH]`
+### File:
+`/var/www/dvwa/vulnerabilities/exec/source/low`
 
 #### Key Vulnerability Points:
 

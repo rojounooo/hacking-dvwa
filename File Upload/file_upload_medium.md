@@ -139,3 +139,48 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 ```
 
 ### Explanation
+
+- The code takes the uploaded file directly from the user without proper validation or sanitisation of the filename:
+
+    ```php
+    $target_path  = DVWA_WEB_PAGE_TO_ROOT . "hackable/uploads/";
+    $target_path .= basename($_FILES['uploaded']['name']);
+    ```
+
+- It retrieves file information such as name, MIME type, and size from the uploaded file:
+
+    ```php
+    $uploaded_name = $_FILES['uploaded']['name'];
+    $uploaded_type = $_FILES['uploaded']['type'];
+    $uploaded_size = $_FILES['uploaded']['size'];
+    ```
+
+- It attempts to validate the file by checking if the MIME type is `"image/jpeg"` or `"image/png"` and if the size is less than 100,000 bytes (approximately 100 KB):
+
+    ```php
+    if( ($uploaded_type == "image/jpeg" || $uploaded_type == "image/png") && ($uploaded_size < 100000) ) {
+    ```
+
+- If the validation passes, it moves the uploaded file to the target directory:
+
+    ```php
+    move_uploaded_file($_FILES['uploaded']['tmp_name'], $target_path);
+    ```
+
+- If the move fails, it shows an error message; if successful, it confirms the upload.
+
+- If the validation fails (wrong file type or size), it shows a rejection message.
+
+- Causes
+
+    - **MIME type check is weak and can be spoofed:** The script relies on the MIME type sent by the client, which attackers can manipulate e.g using Burp Suite
+
+    - **Filename not sanitised:** Using `basename()` only strips directory paths but does not prevent dangerous filenames or double extensions (e.g., `shell.php.jpg`).
+
+    - **No verification of file content:** The script does not check if the file is actually a valid image (e.g., via `getimagesize()`), so malicious files can be disguised as images.
+
+    - **Uploads saved in a web-accessible directory:** Uploaded files can be accessed and potentially executed by visiting their URL.
+
+    - **No filename randomisation:** This can lead to file overwriting or easier targeting by attackers.
+
+

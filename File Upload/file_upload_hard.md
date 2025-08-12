@@ -141,3 +141,57 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 ```
 
 ### Explanation
+### Explanation
+
+- The code takes the uploaded file directly from the user and constructs the target path for saving the file:
+
+    ```php
+    $target_path  = DVWA_WEB_PAGE_TO_ROOT . "hackable/uploads/";
+    $target_path .= basename($_FILES['uploaded']['name']);
+    ```
+
+- It extracts file information including the filename, file extension, size, and temporary file path:
+
+    ```php
+    $uploaded_name = $_FILES['uploaded']['name'];
+    $uploaded_ext  = substr($uploaded_name, strrpos($uploaded_name, '.') + 1);
+    $uploaded_size = $_FILES['uploaded']['size'];
+    $uploaded_tmp  = $_FILES['uploaded']['tmp_name'];
+    ```
+
+- The script validates the file by checking:
+
+  - The file extension is one of `jpg`, `jpeg`, or `png` (case insensitive):
+
+    ```php
+    strtolower($uploaded_ext) == "jpg" || strtolower($uploaded_ext) == "jpeg" || strtolower($uploaded_ext) == "png"
+    ```
+
+  - The file size is less than 100,000 bytes.
+
+  - The file is a valid image by using `getimagesize()` on the temporary file:
+
+    ```php
+    getimagesize($uploaded_tmp)
+    ```
+
+- If all validations pass, the file is moved to the upload directory:
+
+    ```php
+    move_uploaded_file($uploaded_tmp, $target_path)
+    ```
+
+- Success or failure messages are displayed based on whether the file was moved.
+
+- If any validation fails, an error message is shown indicating only JPEG or PNG images are accepted.
+
+### Causes:
+
+- **Filename still not fully sanitised:** Using `basename()` only strips directory paths but doesn’t prevent dangerous filenames or double extensions (e.g., `shell.php.jpg`).
+
+- **File saved with original name:** No renaming or randomisation, so potential overwriting and easier attacker targeting remain.
+
+- **Upload directory is web accessible:** Uploaded files can still be accessed and potentially executed if a malicious file bypasses checks.
+
+- **No checks against double extensions beyond extension extraction:** The script assumes the last extension is trustworthy.
+

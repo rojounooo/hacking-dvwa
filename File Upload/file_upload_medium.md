@@ -4,12 +4,15 @@
 
 ## Attack Steps
 
-1. Open Burp Suite and start a temporary project
+1. Open Burp Suite
+
+    - Start a **temporary project**
 
 2. Navigate to the proxy tab
-    - `CTRL + SHIFT + P`
+    - Shortcut `CTRL + SHIFT + P`
 
-3. Ensure the intercept is off and open the chromium browser
+3. Ensure the intercept is OFF 
+    - Open the chromium browser
 
 4. Navigate to DVWA and set difficulty to medium 
 
@@ -33,8 +36,9 @@
     sudo cp /usr/share/webshells/php/php_reverse_shell.php php_reverse_shell.jpg
     ```
 
-7. On the target page:
+7. Prepare for upload:
     
+    - Return to target page
     - Browse for `php_reverse_shell.jpg`
     - Select file 
     - DO NOT UPLOAD 
@@ -43,16 +47,25 @@
 
     - On Burp Suite turn the intercept on to catch request
 
-9. Upload file 
+9. Upload file:
 
-10. Edit request: 
+    - Request will be caught by Burp
+
+10. Edit request in Burp Proxy: 
     
-    - In Burp Proxy, scroll down to filename and change to php_reverse_shell.php
+    - Scroll down to filename
+    - Change from
+    ```bash 
+    filename="php_reverse_shell.jpg"
+    ```
+    - to:
     ```bash 
     filename="php_reverse_shell.php"
     ```
+    
+11. Forward the request
 
-11. Forward the request and turn intercept off
+    - Turn intercept off
 
 12. On the kali terminal start a listener 
 

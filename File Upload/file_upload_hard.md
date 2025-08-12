@@ -141,7 +141,6 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 ```
 
 ### Explanation
-### Explanation
 
 - The code takes the uploaded file directly from the user and constructs the target path for saving the file:
 

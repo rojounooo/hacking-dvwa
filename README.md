@@ -20,10 +20,9 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 ---
 
 ## 🛠 Tools Used
-- VirtualBox
-- Kali Linux 
-- Ubuntu Server 
+- XAMPP
 - DVWA 
+- Netcat
 
 ---
 

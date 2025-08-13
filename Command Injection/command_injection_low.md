@@ -8,7 +8,7 @@ http://localhost/dvwa/vulnerabilities/exec
  
 2. **Enter the payload** in the input field:  
 ```bash
-8.8.8.8|dir
+8.8.8.8;dir
 ```
 
 
@@ -30,7 +30,7 @@ http://localhost/dvwa/vulnerabilities/exec
 ## Vulnerable Code Analysis
 
 ### File:
-`/var/www/dvwa/vulnerabilities/exec/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\exec\source\low.php`
 
 #### Key Vulnerability Points:
 
@@ -66,11 +66,11 @@ if( isset( $_POST[ 'submit' ] ) ) {
     ```  
 - This can be exploited using a payload such as:  
     ```
-    127.0.0.1 && whoami
+    127.0.0.1;whoami
     ```  
     - The command executed by the server becomes:  
       ```
-      ping -c 3 127.0.0.1 && whoami
+      ping -c 3 127.0.0.1;whoami
       ```  
     - After the ping runs, `whoami` will also execute, revealing the username of the process running PHP.  
 - Causes:  

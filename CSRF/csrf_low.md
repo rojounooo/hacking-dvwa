@@ -3,10 +3,10 @@
 ## Attack Steps: 
 
 1. Navigate to target page: 
-    - http://<ip address>/dvwa/vulnerabilities/csrf
+    - http://localhost/dvwa/vulnerabilities/csrf
 
 2. Edit the url to the following: 
-    - http://<ip address>>/dvwa/vulnerabilities/csrf/?password_new=hacked&password_conf=hacked&Change=Change#
+    - http://localhost/dvwa/vulnerabilities/csrf/?password_new=hacked&password_conf=hacked&Change=Change#
 
 3. Logout 
 
@@ -15,7 +15,7 @@
 ## Vulnerable Code Analysis 
 
 ### File Path:
-`/var/www/dvwa/vulnerabilities/csrf/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\csrf\source\low.php`
 
 #### Key Vulnerability Points 
 
@@ -51,5 +51,39 @@ if( isset( $_GET[ 'Change' ] ) ) {
 
 ?>
 ```
+### Explanation
+
+- The code changes the logged‑in user’s password if the `Change` parameter is present in a **GET** request:
+  ```php
+  if( isset( $_GET[ 'Change' ] ) ) { ... }
+  ```
+
+- It retrieves password_new and password_conf from the query string:
+
+	```php
+	$pass_new  = $_GET['password_new'];
+	$pass_conf = $_GET['password_conf'];
+	```
+	- and updates the password if they match — no further verification is performed.
+
+- The application does not require:
+
+	- Any CSRF token
+	- Checking the request’s origin or referrer This means any webpage can cause a logged‑in user’s browser to send the malicious request.
+
+	- Example exploit URL on Windows/XAMPP:
+
+	```html 
+	http://localhost/dvwa/vulnerabilities/csrf/?password_new=hacked&password_conf=hacked&Change=Change#
+	```
+	- Visiting this while logged in will change the current account’s password to hacked without user consent.
+
+- Causes:
+
+	- No CSRF protection mechanism in place
+	- Accepting sensitive actions via GET instead of POST
+	- Trusting session state (dvwaCurrentUser()) alone to determine authorisation
+	- No user confirmation step before updating the password
+
 
 

@@ -21,7 +21,10 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 ---
 
 ## 🛠 Tools Used
-- 
+- VirtualBox
+- Kali Linux 
+- Ubuntu Server 
+- DVWA 
 
 ---
 
@@ -33,12 +36,12 @@ This project is for **educational purposes only**. Do not attempt to exploit sys
 
 ## ✅ Progress Tracker
 
-| Vulnerability     | Low | Medium | High | Impossible |
-|-------------------|-----|--------|------|------------|
-| SQL Injection     | ⬜  | ⬜     | ⬜   | ⬜       |
-| Reflected XSS     | ⬜  | ⬜     | ⬜   | ⬜       |
-| Stored XSS        | ⬜  | ⬜     | ⬜   | ⬜       |
-| Command Injection | ⬜  | ⬜     | ⬜   | ⬜       |
-| File Upload       | ⬜  | ⬜     | ⬜   | ⬜       |
-| CSRF              | ⬜  | ⬜     | ⬜   | ⬜       |
-| Brute Force       | ⬜  | ⬜     | ⬜   | ⬜       |
+| Vulnerability     | Low | Medium | High |
+|-------------------|-----|--------|------|
+| SQL Injection     | ⬜  | ⬜     | ⬜   |
+| Reflected XSS     | ⬜  | ⬜     | ⬜   |
+| Stored XSS        | ⬜  | ⬜     | ⬜   |
+| Command Injection | ⬜  | ⬜     | ⬜   |
+| File Upload       | ⬜  | ⬜     | ⬜   |
+| CSRF              | ⬜  | ⬜     | ⬜   |
+| Brute Force       | ⬜  | ⬜     | ⬜   |

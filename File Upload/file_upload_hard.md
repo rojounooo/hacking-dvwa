@@ -16,7 +16,7 @@
 
 4. Navigate to DVWA and set difficulty to hard 
 
-    - http://<ip address>/dvwa
+    - http://localhost/dvwa
     - Login
     ```bash 
     admin
@@ -26,15 +26,11 @@
     - Set security level to hard
 
 5. Navigate to the target webpage 
-    - http://<ip address>/dvwa/vulnerabilites/upload
+    - http://localhost/dvwa/vulnerabilities/upload
 
 6. Make a copy of `php_reverse_shell.php` and save as a jpg file:
-
-    - `CTRL + ATL + T` to open a terminal 
-
-    ```bash 
-    sudo cp /usr/share/webshells/php/php_reverse_shell.php php_reverse_shell.jpg
-    ```
+    
+    - Manually copy php_reverse_shell.php and rename it to .jpg using File Explorer
 
 7. Prepare for upload:
     
@@ -67,10 +63,10 @@
 
     - Turn intercept off
 
-12. On the kali terminal start a listener 
+12. in a powershell terminal start a listener 
 
     ```bash 
-    nc -lvnp 1234 # If you changed the port number in the webshell file then change it here 
+    nc.exe -lvnp 1234 # If you changed the port number in the webshell file then change it here 
     # l - listener mode
     # v - verbose output 
     # n - skip DNS resolution (faster) 
@@ -79,9 +75,9 @@
 
 13. Navigate to the uploaded webshell 
 
-    - The uploaded file was saved to http://<ip address>/dvwa/hackable/upload/php-reverse-shell.php.jpg
+    - The uploaded file was saved to http://localhost/dvwa/hackable/upload/php-reverse-shell.php.jpg
 
-    - Alternatively run `curl -s http://<ip address>/dvwa/hackable/upload/php-reverse-shell.php.jpg` in another terminal 
+    - Alternatively run `Invoke-WebRequest -Uri http://localhost/dvwa/hackable/upload/php-reverse-shell.php.jpg -UseBasicParsing` in another Powershell terminal
 
 14. On the netcat listener look a connection
     
@@ -98,7 +94,7 @@
 
 
 ### File 
-`/var/www/dvwa/vulnerabilities/upload/source/hard`
+`C:\xampp\htdocs\DVWA\vulnerabilities\upload\source\hard.php`
 
 #### Key Vulnerability Points:
 
@@ -187,10 +183,7 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 ### Causes:
 
 - **Filename still not fully sanitised:** Using `basename()` only strips directory paths but doesn’t prevent dangerous filenames or double extensions (e.g., `shell.php.jpg`).
-
 - **File saved with original name:** No renaming or randomisation, so potential overwriting and easier attacker targeting remain.
-
 - **Upload directory is web accessible:** Uploaded files can still be accessed and potentially executed if a malicious file bypasses checks.
-
 - **No checks against double extensions beyond extension extraction:** The script assumes the last extension is trustworthy.
 

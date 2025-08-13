@@ -1,6 +1,6 @@
 # DVWA Testing Documentation
 
-This repository contains my walkthrough and notes while testing Damn Vulnerable Web Application ,on the Metasploitable 2 VM, a deliberately insecure PHP app for learning about web vulnerabilities.
+This repository contains my walkthrough and notes while testing Damn Vulnerable Web Application, a deliberately insecure PHP app for learning about web vulnerabilities.
 
 ---
 

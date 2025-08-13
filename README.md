@@ -31,13 +31,13 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 
 | Vulnerability     | Low | Medium | High |
 |-------------------|-----|--------|------|
-| SQL Injection     | ⬜  | ⬜     | ⬜   |
-| Reflected XSS     | ⬜  | ⬜     | ⬜   |
-| Stored XSS        | ⬜  | ⬜     | ⬜   |
-| Command Injection | ⬜  | ⬜     | ⬜   |
-| File Upload       | ⬜  | ⬜     | ⬜   |
-| CSRF              | ⬜  | ⬜     | ⬜   |
-| Brute Force       | ⬜  | ⬜     | ⬜   |
+| SQL Injection     | ✅  | ⬜     | ⬜   |
+| Reflected XSS     | ✅  | ⬜     | ⬜   |
+| Stored XSS        | ✅  | ⬜     | ⬜   |
+| Command Injection | ✅  | ⬜     | ⬜   |
+| File Upload       | ✅  | ✅     | ✅   |
+| CSRF              | ✅  | ⬜     | ⬜   |
+| Brute Force       | ✅  | ⬜     | ⬜   |
 
 --- 
 

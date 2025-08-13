@@ -27,12 +27,6 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 
 ---
 
-## ⚠️ Disclaimer
-
-This project is for **educational purposes only**. Do not attempt to exploit systems you don’t own or have explicit permission to test.
-
---- 
-
 ## ✅ Progress Tracker
 
 | Vulnerability     | Low | Medium | High |
@@ -44,3 +38,10 @@ This project is for **educational purposes only**. Do not attempt to exploit sys
 | File Upload       | ⬜  | ⬜     | ⬜   |
 | CSRF              | ⬜  | ⬜     | ⬜   |
 | Brute Force       | ⬜  | ⬜     | ⬜   |
+
+--- 
+
+## ⚠️ Disclaimer
+
+This project is for **educational purposes only**. Do not attempt to exploit systems you don’t own or have explicit permission to test.
+

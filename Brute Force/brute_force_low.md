@@ -4,30 +4,33 @@
 
 ## Attack Steps
 
-1. Open the target page in the browser: 
-    - http://<ip address>/dvwa/vulnerabilities/brute/
+1. **Open DVWA Brute Force page**  
+   Navigate to: http://localhost/dvwa/vulnerabilities/brute/
 
-2. Enter the following credentials 
+2. **Enter SQL injection payload in login form**  
 
     ```sql
     Username: admin' or '1'='1 -- 
-    Password: anything # Change the password to whatever
+    Password: anything
     ```
+    - Any password value will work because the injection bypasses the check.
 
-3. Observe login message 
+3. **Submit and observe result**  
+You should see:
+Welcome to the password protected area admin' or '1'='1 --
 
-    ```bash 
-    Welcome to the password protected area admin' or '1'='1 --
-    ```
 
-### Note 
-- This attempt technically isn't a brute force attack. When utilising Hydra, I got multiple false positives due to the response length. After analysing the source code I identified that it was also weak to SQLi. 
---- 
+## Notes
+- This vulnerability is in the **Brute Force** module, but we’re exploiting it using **SQL Injection**.
+- Tools like Hydra may produce false positives here because the response length doesn’t change.
+- Reviewing the source code reveals the root cause.
+
+---
 
 ## Vulnerable Code Analysis 
 
 ### File: 
-`/var/www/dvwa/vulnerabilities/brute/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\brute\source\low.php`
 
 #### Key Vulnerability Points:
 

@@ -5,14 +5,15 @@
 ## Attack Steps 
 
 1. Open the target page in browser 
+    - http://localhost/dvwa/vulnerabilities/sqli
 
 2. Enter an id number e.g. 1
 
 3. Observe the url
-    - It becomes http://<ip address>/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit#
+    - It becomes http://localhost/dvwa/vulnerabilities/sqliid=1&Submit=Submit#
 
 4. Inject payload 
-    - Change the URL to http://<ip address>/dvwa/vulnerabilities/sqli/?id=1' or '1'=1&Submit=Submit
+    - Change the URL to http://localhost/dvwa/vulnerabilities/sqli/?id=1' or '1'=1&Submit=Submit
 
 5. Observe the list of names
 
@@ -21,7 +22,7 @@
 ## Vulnerable Code Analysis
 
 ### File:
-`/var/www/dvwa/vulnerabilities/sqli/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\sqli\source\low.php`
 
 #### Key Vulnerability Points:
 

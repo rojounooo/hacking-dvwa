@@ -5,7 +5,7 @@
 ## Attack Steps 
 
 1. Open target page in browser 
-    - http://<ip address>/dvwa/vulnerabilities/xss_r/
+    - http://localhost/dvwa/vulnerabilities/xss_r/
 
 2. Enter XSS Payload 
 
@@ -22,7 +22,7 @@
 ## Vulnerable Code Analysis 
 
 ### File: 
-`/var/www/dvwa/vulnerabilities/xss_r/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\xss_r\source\low.php`
 
 #### Key Vulnerability Points:
 

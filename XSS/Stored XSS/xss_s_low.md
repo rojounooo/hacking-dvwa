@@ -5,7 +5,7 @@
 ## Attack Steps
 
 1. Open the target page in the browser: 
-    - http://<ip address>/dvwa/vulnerabilities/xss_s/
+    - http://localhost/dvwa/vulnerabilities/xss_s/
 
 2. Sign the guestbook with a script
 
@@ -21,7 +21,7 @@
 ## Vulnerable Code Analysis 
 
 ### File: 
-`/var/www/dvwa/vulnerabilities/xss_s/source/low`
+`C:\xampp\htdocs\DVWA\vulnerabilities\xss_s\source\low.php`
 
 #### Key Vulnerability Points:
 
@@ -72,9 +72,7 @@
 - Causes: 
 
     - No input validation or filtering for dangerous characters other than SQL characters. 
-
     - No output encoding like `htmlspecialchars()` when displaying stored content
-
     - User input is trusted HTML when rendered
 
 

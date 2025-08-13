@@ -22,7 +22,7 @@ Welcome to the password protected area admin' or '1'='1 --
 
 ## Notes
 - This vulnerability is in the **Brute Force** module, but we’re exploiting it using **SQL Injection**.
-- Tools like Hydra may produce false positives here because the response length doesn’t change.
+- Tools like Hydra or Burp Suite may produce false positives here because the response length doesn’t change.
 - Reviewing the source code reveals the root cause.
 
 ---

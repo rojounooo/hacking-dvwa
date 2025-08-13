@@ -16,7 +16,6 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 - **Low** – Minimal or no protection.
 - **Medium** – Basic input validation or filters.
 - **High** – More sophisticated protections.
-- **Impossible** – Secure implementations.
 
 ---
 

@@ -35,7 +35,7 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 | SQL Injection     | ✅  | ⬜     | ⬜   |
 | Reflected XSS     | ✅  | ⬜     | ⬜   |
 | Stored XSS        | ✅  | ⬜     | ⬜   |
-| Command Injection | ✅  | ⬜     | ⬜   |
+| Command Injection | ✅  | ✅     | ✅   |
 | File Upload       | ✅  | ✅     | ✅   |
 | CSRF              | ✅  | ⬜     | ⬜   |
 | Brute Force       | ✅  | ⬜     | ⬜   |

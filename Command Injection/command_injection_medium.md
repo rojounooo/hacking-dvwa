@@ -8,7 +8,7 @@ http://localhost/dvwa/vulnerabilities/exec
  
 2. **Enter the payload** in the input field:  
 ```bash
-8.8.8.8 && dir
+8.8.8.8 | dir
 ```
 
 3. Click the **Submit** button.
@@ -29,49 +29,56 @@ http://localhost/dvwa/vulnerabilities/exec
 ## Vulnerable Code Analysis
 
 ### File:
-`C:\xampp\htdocs\DVWA\vulnerabilities\exec\source\low.php`
+`C:\xampp\htdocs\DVWA\vulnerabilities\exec\source\medium.php`
 
 #### Key Vulnerability Points:
 
 ```php
- <?php
+<?php
 
-if( isset( $_POST[ 'submit' ] ) ) {
+if( isset( $_POST[ 'Submit' ]  ) ) {
+	// Get input
+	$target = $_REQUEST[ 'ip' ];
 
-    $target = $_REQUEST[ 'ip' ];
+	// Set blacklist
+	$substitutions = array(
+		'&&' => '',
+		';'  => '',
+	);
 
-    // Determine OS and execute the ping command.
-    if (stristr(php_uname('s'), 'Windows NT')) { 
-    
-        $cmd = shell_exec( 'ping  ' . $target );
-        echo '<pre>'.$cmd.'</pre>';
-        
-    } else { 
-    
-        $cmd = shell_exec( 'ping  -c 3 ' . $target );
-        echo '<pre>'.$cmd.'</pre>';
-        
-    }  
+	// Remove any of the characters in the array (blacklist).
+	$target = str_replace( array_keys( $substitutions ), $substitutions, $target );
+
+	// Determine OS and execute the ping command.
+	if( stristr( php_uname( 's' ), 'Windows NT' ) ) {
+		// Windows
+		$cmd = shell_exec( 'ping  ' . $target );
+	}
+	else {
+		// *nix
+		$cmd = shell_exec( 'ping  -c 4 ' . $target );
+	}
+
+	// Feedback for the end user
+	$html .= "<pre>{$cmd}</pre>";
 }
-?> 
+
+?>
 ```
 
 ### Explanation
-- The code takes direct user input `$target = $_REQUEST['ip'];` and passes it straight into a shell command without any validation or sanitisation.  
-- The value of `$target` is concatenated into the `ping` command string inside `shell_exec()`, e.g.:  
-    ```php
-    shell_exec('ping -c 3 ' . $target);
-    ```  
+- The script processes user-submitted input (ip) and executes a system ping command:
+- Only `&&` and `;` are blacklisted prevent command concatenation
 - This can be exploited using a payload such as:  
     ```
-    127.0.0.1 & whoami
+    127.0.0.1 | whoami
     ```  
     - The command executed by the server becomes:  
       ```
-      ping -c 3 127.0.0.1 & whoami
+      ping -c 3 127.0.0.1 | whoami
       ```  
-    - After the ping runs, `whoami` will also execute, revealing the username of the process running PHP.  
+    - Ping will still be run but only the output of the `whoami` command will be printed
 - Causes:  
-    - No input validation or sanitisation on `$target`, so arbitrary commands can be injected.  
-    - Direct insertion of user input into a shell command allows attackers to append extra commands using operators like `&&`, `;`, or `|`.  This is OS dependant 
-    - Not using safe functions like `escapeshellarg()` or input whitelisting means special characters are interpreted by the shell.  
+    - There was only basic blacklisting of 2 operators 
+    - Still allows direct insertion of user input into a shell command, so payloads utilising piping can be injected
+    - Not using safe functions like `escapeshellarg()` means special characters are interpreted by the shell.  

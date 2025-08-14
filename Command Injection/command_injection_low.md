@@ -8,7 +8,7 @@ http://localhost/dvwa/vulnerabilities/exec
  
 2. **Enter the payload** in the input field:  
 ```bash
-8.8.8.8;dir
+8.8.8.8 & dir
 ```
 
 
@@ -52,8 +52,7 @@ if( isset( $_POST[ 'submit' ] ) ) {
         $cmd = shell_exec( 'ping  -c 3 ' . $target );
         echo '<pre>'.$cmd.'</pre>';
         
-    }
-    
+    }  
 }
 ?> 
 ```
@@ -66,14 +65,14 @@ if( isset( $_POST[ 'submit' ] ) ) {
     ```  
 - This can be exploited using a payload such as:  
     ```
-    127.0.0.1;whoami
+    127.0.0.1 & whoami
     ```  
     - The command executed by the server becomes:  
       ```
-      ping -c 3 127.0.0.1;whoami
+      ping -c 3 127.0.0.1 & whoami
       ```  
     - After the ping runs, `whoami` will also execute, revealing the username of the process running PHP.  
 - Causes:  
     - No input validation or sanitisation on `$target`, so arbitrary commands can be injected.  
-    - Direct insertion of user input into a shell command allows attackers to append extra commands using operators like `&&`, `;`, or `|`.  
+    - Direct insertion of user input into a shell command allows attackers to append extra commands using operators like `&&`, `;`, or `|`.  This is OS dependant 
     - Not using safe functions like `escapeshellarg()` or input whitelisting means special characters are interpreted by the shell.  

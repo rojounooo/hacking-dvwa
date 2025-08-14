@@ -23,6 +23,7 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 - XAMPP
 - DVWA 
 - Netcat
+- Burp Suite 
 
 ---
 

@@ -1,5 +1,8 @@
 # 🛠️ How to Set Up DVWA on a Windows Machine
 
+--- 
+# XAMPP & DVWA
+
 ## 1. Install XAMPP
 - Download XAMPP from the [official Apache Friends website](https://www.apachefriends.org/index.html).
 - Run the installer and follow the setup wizard.
@@ -59,3 +62,133 @@
         Username: admin
         Password: password
         ```
+
+---
+
+# Burp Suite 
+
+# 🕵️‍♂️ How to Install Burp Suite on Windows
+
+## 1. Download Burp Suite
+    - Visit the [official PortSwigger website](https://portswigger.net/burp).
+    - Choose either:
+        - **Burp Suite Community Edition** (free)
+        - **Burp Suite Professional** (paid)
+    - Click **Download** and select the **Windows installer (.exe)**.
+
+## 2. Run the Installer
+    - Locate the downloaded `.exe` file (usually in your Downloads folder).
+    - Double-click to launch the installer.
+    - Follow the installation wizard:
+        - Accept the license agreement.
+        - Choose an installation directory (default is fine).
+        - Click **Install**.
+
+## 3. Launch Burp Suite
+    - After installation, launch Burp Suite from the Start Menu or desktop shortcut.
+    - On first launch:
+        - Choose **Temporary Project** or **New Project**.
+        - Select **Use Burp defaults**.
+        - Click **Start Burp**.
+
+## 4. Configure Browser Proxy (Optional but Recommended)
+    - Burp Suite listens on `127.0.0.1:8080` by default.
+    - To intercept traffic, configure your browser to use this proxy:
+        - In Firefox:  
+            - Go to `Settings > Network Settings > Manual proxy configuration`.
+            - Set HTTP Proxy to `127.0.0.1` and Port to `8080`.
+        - In Chrome:  
+            - Use an extension like [FoxyProxy](https://getfoxyproxy.org/) to manage proxy settings.
+
+## 5. Install Burp Certificate (for HTTPS Interception)
+- In your browser, go to:
+    - http://burpsuite
+- Download the **CA Certificate**.
+- Import it into your browser's certificate store as a **Trusted Root Certificate**.
+
+    ### 🌐 Chrome (Windows)
+    1. Export Burp's CA Certificate
+        - Open Burp Suite.
+        - Go to:
+            Proxy > Options > Import / export CA certificate > Export certificate in DER format
+        - Save the file as `burpCA.der` (or similar).
+    
+    2. Open Windows Certificate Manager
+        - Press `Win + R`, type:
+            certmgr.msc
+        - Hit Enter
+
+    3. Import the Certificate
+        - In the left pane, expand:
+            Trusted Root Certification Authorities > Certificates
+        - Right-click **Certificates** > **All Tasks** > **Import**.
+        - Follow the wizard:
+        - Browse to your `burpCA.der` file.
+        - Choose **Place all certificates in the following store**:  
+            `Trusted Root Certification Authorities`
+        - Finish and confirm the import.
+
+    4. Restart Chrome
+        - Close and reopen Chrome to apply the changes.
+
+    ### 🦊 Firefox (Uses Its Own Certificate Store)
+
+        1. Export Burp's CA Certificate
+            - Same as Chrome: export the certificate in DER format from Burp Suite.
+
+        2. Open Firefox Certificate Settings
+            - In Firefox, go to:
+                Settings > Privacy & Security > Certificates > View Certificates
+            - Click **Authorities** tab.
+        
+        3. Import the Certificate
+            - Click **Import**.
+            - Select your `burpCA.der` file.
+            - Check:
+                - ✅ "Trust this CA to identify websites"
+            - Click **OK** to finish.
+
+        4. Restart Firefox
+            - Close and reopen Firefox to apply the changes.
+
+---
+
+# Netcat
+
+1. Download Netcat for Windows
+    - Visit a trusted source like [nmap.org](https://nmap.org/ncat/) or [eternallybored.org](https://eternallybored.org/misc/netcat/).
+    - Download the appropriate version:
+      - For most users: `netcat.zip` or `nc.exe` (standalone binary).
+
+2. Extract or Move the Binary
+    - If you downloaded a ZIP file:
+    - Extract it to a folder, e.g.:
+        ```
+        C:\Tools\netcat\
+        ```
+    - If you downloaded `nc.exe` directly:
+    - Move it to a permanent location like:
+        ```
+        C:\Tools\netcat\nc.exe
+        ```
+
+3. Add Netcat to System PATH
+
+    - Press `Win + S` and search for:
+        Environment Variables
+    - Click **Edit the system environment variables**.
+    - In the System Properties window 
+        - Click **Environment Variables**.
+    - Under **System variables**
+        - Find and select `Path`
+        - Click **Edit**.
+    - Click **New** and add the path to your Netcat folder:
+        C:\Tools\netcat
+    - Click **OK** on all dialogs to save.
+
+4. Verify Installation
+    - Open Command Prompt (`cmd`) and type:
+        ```bash 
+        nc -h
+        ```
+    - You should see Netcat’s help output.

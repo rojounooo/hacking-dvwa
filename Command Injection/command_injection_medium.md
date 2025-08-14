@@ -1,4 +1,4 @@
-# Command Injection - Low 
+# Command Injection - Medium
 
 ## Attack Steps
 
@@ -10,7 +10,6 @@ http://localhost/dvwa/vulnerabilities/exec
 ```bash
 8.8.8.8 && dir
 ```
-
 
 3. Click the **Submit** button.
 
@@ -65,11 +64,11 @@ if( isset( $_POST[ 'submit' ] ) ) {
     ```  
 - This can be exploited using a payload such as:  
     ```
-    127.0.0.1 && whoami
+    127.0.0.1 & whoami
     ```  
     - The command executed by the server becomes:  
       ```
-      ping -c 3 127.0.0.1 && whoami
+      ping -c 3 127.0.0.1 & whoami
       ```  
     - After the ping runs, `whoami` will also execute, revealing the username of the process running PHP.  
 - Causes:  

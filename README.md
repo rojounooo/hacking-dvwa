@@ -22,6 +22,7 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 ## 🛠 Tools Used
 - XAMPP
 - DVWA 
+- WSL
 - Netcat
 - Burp Suite 
 

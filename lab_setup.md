@@ -1,5 +1,13 @@
 # 🛠️ How to Set Up DVWA on a Windows Machine
 
+
+---
+
+# 🧭 Table of Contents
+- [XAMPP & DVWA](#xampp--dvwa)
+- [Burp Suite](#burp-suite)
+- [WSL & Netcat](#wsl--netcat)
+
 --- 
 # XAMPP & DVWA
 
@@ -153,42 +161,18 @@
 
 ---
 
-# Netcat
+# WSL & Netcat 
 
-1. Download Netcat for Windows
-    - Visit a trusted source like [nmap.org](https://nmap.org/ncat/) or [eternallybored.org](https://eternallybored.org/misc/netcat/).
-    - Download the appropriate version:
-      - For most users: `netcat.zip` or `nc.exe` (standalone binary).
+1. Install WSL via PowerShell
+    ```powershell
+    wsl --install --version 1
+    ```
+    - Version 1 doesn't require virtualisation to be enabled 
 
-2. Extract or Move the Binary
-    - If you downloaded a ZIP file:
-    - Extract it to a folder, e.g.:
-        ```
-        C:\Tools\netcat\
-        ```
-    - If you downloaded `nc.exe` directly:
-    - Move it to a permanent location like:
-        ```
-        C:\Tools\netcat\nc.exe
-        ```
+2. Inside WSL
+    
+    ```bash
+    sudo apt update 
+    sudo apt install netcat -y 
+    ```
 
-3. Add Netcat to System PATH
-
-    - Press `Win + S` and search for:
-        Environment Variables
-    - Click **Edit the system environment variables**.
-    - In the System Properties window 
-        - Click **Environment Variables**.
-    - Under **System variables**
-        - Find and select `Path`
-        - Click **Edit**.
-    - Click **New** and add the path to your Netcat folder:
-        C:\Tools\netcat
-    - Click **OK** on all dialogs to save.
-
-4. Verify Installation
-    - Open Command Prompt (`cmd`) and type:
-        ```bash 
-        nc -h
-        ```
-    - You should see Netcat’s help output.

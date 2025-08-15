@@ -27,21 +27,17 @@
 #### Key Vulnerability Points:
 
 ```php 
-    <?php
+<?php
 
-    if(!array_key_exists ("name", $_GET) || $_GET['name'] == NULL || $_GET['name'] == ''){
+header ("X-XSS-Protection: 0");
 
-    $isempty = true;
+// Is there any input?
+if( array_key_exists( "name", $_GET ) && $_GET[ 'name' ] != NULL ) {
+	// Feedback for end user
+	$html .= '<pre>Hello ' . $_GET[ 'name' ] . '</pre>';
+}
 
-    } else {
-        
-    echo '<pre>';
-    echo 'Hello ' . $_GET['name'];
-    echo '</pre>';
-    
-    }
-
-    ?> 
+?>
 ```
  
 ### Explanation
@@ -49,7 +45,7 @@
 - The code takes direct user input from the **GET** request:
 
     ```php
-    echo 'Hello ' . $_GET['name'];
+    if( array_key_exists( "name", $_GET ) && $_GET[ 'name' ] != NULL )
     ```
     - It performs **no input validation**, filtering, or sanitization of the `name` parameter.
     - The value of `$_GET['name']` is **directly inserted into the HTML response** without any output encoding like `htmlspecialchars()`.

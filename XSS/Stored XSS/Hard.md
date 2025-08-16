@@ -1,31 +1,31 @@
-# Stored XSS - Hard 
+# Stored XSS - Hard
 
---- 
+---
 
-## Attack Steps 
+## Attack Steps
 
 1. Open burp suite
-    - Temporary Project 
+    - Temporary Project
     - Use Burp Default
 
 2. Navigate to proxy
-    - Set intercept to off 
-    -  Open browser
+    - Set intercept to off
+    - Open browser
 
-3. Set security level to medium 
+3. Set security level to medium
     - http://localhost/dvwa/security.php
 
 4. Navigate to XSS (Stored)
 
-5. Turn intercept back on 
+5. Turn intercept back on
 
-6. Sign guestbook 
-    ```bash 
+6. Sign guestbook
+    ```bash
     Name: Hecker 
     Message:: XSS Found
     ```
 
-7. Edit the intercepted request 
+7. Edit the intercepted request
     - Change name from:
         ```bash 
         hecker
@@ -33,12 +33,13 @@
     - To:
         ```bash 
         <img src=0 onerror=alert(1)>
+        ```
 
-8. Turn off intercept 
+8. Turn off intercept
 
 9. Forward request
 
-10. Refresh the page 
+10. Refresh the page
 
     - After refreshing an alert will show up
 
@@ -75,3 +76,28 @@ if( isset( $_POST[ 'btnSign' ] ) ) {
 
 ?>
 ```
+
+## Explanation
+
+- Script takes direct user input for name and message:
+    ```php 
+    	$message = trim( $_POST[ 'mtxMessage' ] );
+	    $name = trim( $_POST[ 'txtName' ] );
+    ```
+
+- Message is sanitised to prevent HTML tags and created HTML entitites to prevent malicious HTML/JavaScript
+    ```php
+    $message = strip_tags( addslashes( $message ) );
+	$message = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $message ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
+	$message = htmlspecialchars( $message );
+    ```
+
+- Name is sanitised using regex to filter out case insensitive <script></script> tags, however it still doesn't output HTML entities using htmlspecialchars()
+    ```php
+    $name = preg_replace( '/<(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i', '', $name );
+    ``` 
+    - It is still vulnerable to alternative tags such as <img>
+
+- Causes:
+    - There is no consistent HTML entity output
+    - User can inject <img> tags for example.

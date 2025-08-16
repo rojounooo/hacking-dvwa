@@ -8,10 +8,11 @@
 
 ## Vulnerable Code Analysis
 
-### File
+### File:
 `C:\xampp\htdocs\DVWA\vulnerabilities\xss_r\source\medium.php`
 
 #### Code
+```php
 <?php
 
 header ("X-XSS-Protection: 0");
@@ -26,3 +27,7 @@ if( array_key_exists( "name", $_GET ) && $_GET[ 'name' ] != NULL ) {
 }
 
 ?>
+```
+
+## Explanation
+

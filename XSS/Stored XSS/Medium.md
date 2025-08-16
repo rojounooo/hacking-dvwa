@@ -10,7 +10,7 @@
 
 2. Navigate to proxy
     - Set intercept to off 
-    -  Open browser
+    - Open browser
 
 3. Set security level to medium 
     - http://localhost/dvwa/security.php

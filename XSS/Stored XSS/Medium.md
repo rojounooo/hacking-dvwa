@@ -32,7 +32,7 @@
         ```
     - To:
         ```bash 
-        <img src=0 onerror=alert(1)>
+        <SCRipt>alert(1)</SCRipt>
 
 8. Turn off intercept 
 

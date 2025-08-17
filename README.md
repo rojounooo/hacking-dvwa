@@ -33,8 +33,8 @@ The documentation is organized by vulnerability, e.g. SQL Injection, Brute Force
 | Vulnerability     | Low | Medium | High |
 |-------------------|-----|--------|------|
 | SQL Injection     | ✅  | ⬜     | ⬜  |
-| Reflected XSS     | ✅  | ⬜     | ⬜  |
-| Stored XSS        | ✅  | ✅     | ⬜  |
+| Reflected XSS     | ✅  | ✅     | ✅  |
+| Stored XSS        | ✅  | ✅     | ✅  |
 | Command Injection | ✅  | ✅     | ✅  |
 | File Upload       | ✅  | ✅     | ✅  |
 | CSRF              | ✅  | ⬜     | ⬜  |

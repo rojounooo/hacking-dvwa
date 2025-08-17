@@ -2,30 +2,71 @@
 
 ---
 
-## Attack Steps
+## Attack Steps 
 
-1. **Open DVWA Brute Force page**  
-   Navigate to: http://localhost/dvwa/vulnerabilities/brute/
+1. Download password list 
 
-2. **Enter SQL injection payload in login form**  
+    - https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/darkweb2017_top-100.txt
 
-    ```sql
-    Username: admin' or '1'='1 -- 
-    Password: anything
+2. Open burp suite
+    - Temporary Project
+    - Use Burp Default
+
+3. Navigate to proxy
+    - Set intercept to off
+    - Open browser
+
+4. Set security level to low
+    - http://localhost/dvwa/security.php
+
+5. Navigate to Brute Force
+
+6. Turn intercept back on
+
+7. Enter credentials and login
+
+    ```bash 
+    Username: admin 
+    Password: anything 
     ```
-    - Any password value will work because the injection bypasses the check.
 
-3. **Submit and observe result**  
-You should see:
-Welcome to the password protected area admin' or '1'='1 --
+    - Press login
 
+8. Send request to Intruder 
 
-## Notes
-- This vulnerability is in the **Brute Force** module, but we’re exploiting it using **SQL Injection**.
-- Tools like Hydra or Burp Suite may produce false positives here because the response length doesn’t change.
-- Reviewing the source code reveals the root cause.
+9. Click Clear § in positions
 
----
+10. Add §
+
+    - Highlight password value 
+    - Click Add §
+
+    - Value should go from 
+    ```html 
+    password=anything
+    ```
+    
+    - To
+    ```html 
+    password=§anything§
+    ```
+
+11. Set attack type 
+
+    - Sniper attack as only brute forcing password 
+
+12. Set Payload 
+ 
+    - Simple list 
+    - Load the downloaded password list
+
+13. Start attack and look for a password with a different response length 
+
+    - E.g. the correct password will have a Response of 40 but incorrect passwords will have a length of over 2000
+
+14. Try logging in with the correct password 
+
+--- 
 
 ## Vulnerable Code Analysis 
 
@@ -70,14 +111,21 @@ if( isset( $_GET[ 'Login' ] ) ) {
 ```
 
 ### Explanation 
-- The code is taking direct user input `$user = $_GET['username'];/$pass = $_GET['password'];`. The password is hashed using MD5 `$pass = md5($pass);` before the username and password hash is inserted into the SQL query.
+- The login form accepts user input via GET parameters:
+	```php 
+	$user = $_GET['username'];
+	$pass = $_GET['password'];
+	```
+- The password is hashed using MD5 before being checked against the database:
+	```php 
+	$pass = md5($pass);
+	```
 
-- This can be exploited using the payload ' or '1'=1 --: 
-    - The query will become "SELECT * FROM `users` WHERE user=' ' or '1'=1 -- ".
-    - The ' ' will be ignored and the boolean value will always be true. 
-    - The `--` will comment out the password section 
+- This is vulnerable to brute force attacks because:
+	- There is no rate limiting, no CAPTCHA, and no account lockout mechanism.
+	- The server responds with noticeably different content lengths for valid vs. invalid credentials, which can be detected using Burp Suite's Intruder tool.
+	- The use of MD5 hashing does not prevent brute force attacks—it simply means the attacker must hash each password before sending it.
 
 - Causes: 
-    - No input validation or sanitisation on $user or $pass so users can input anything
-    - Direct insertion of user input into queries means queries can be modified
-    - Not using prepared statements, prepared statements treat user input only as data rather than SQL code so even if SQL keywords are included they won't modify the queries  
+	- No brute force mitigation 
+	- MD5 is insufficient 
